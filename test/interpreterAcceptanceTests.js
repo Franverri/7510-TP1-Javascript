@@ -130,6 +130,29 @@ describe("Interpreter", function () {
 
     });
 
+    describe('Substitue vars in rules', function () {
+
+        var regla1 = {
+            nombre: "hijo",
+            variables: ["X", "Y"],
+            facts: "varon(X), padre(Y, X)."
+        };
+        var varConsulta1 = ["juan", "pepe"];
+        it('Query "hijo(juan, pepe)" should return varon(juan), padre(pepe, juan).', function () {
+            assert(interpreter.sustituirVariables(regla1, varConsulta1) == "varon(juan), padre(pepe, juan).");
+        });
+
+        var regla2 = {
+            nombre: "cuatro",
+            variables: ["X", "Y", "Z", "K"],
+            facts: "uno(Y), dos(Y, X), cuatro(K, Z, Y, X)."
+        };
+        var varConsulta2 = ["club", "ferro", "carril", "oeste"];
+        it('Query "cuatro(club, ferro, carril, oeste)" should return uno(ferro), dos(ferro, club), cuatro(oeste, carril, ferro, club).', function () {
+            assert(interpreter.sustituirVariables(regla2, varConsulta2) == "uno(ferro), dos(ferro, club), cuatro(oeste, carril, ferro, club).");
+        });
+    });
+
 });
 
 

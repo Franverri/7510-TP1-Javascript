@@ -79,7 +79,7 @@ var Interpreter = function () {
 	}
 
 	//Sustituye las variables de la regla por las ingresadas en la consulta para su posterior evaluación
-	function sustituirVariables(regla, variablesConsulta){
+	this.sustituirVariables = function(regla, variablesConsulta){
 		var factNuevo = regla.facts;
 		for (var i = 0; i < variablesConsulta.length ; i++){
 			factNuevo = factNuevo.replace(new RegExp(regla.variables[i], 'g'), variablesConsulta[i]);
@@ -130,7 +130,7 @@ var Interpreter = function () {
 					//La consulta está asociada a una regla
 					var variablesConsulta = consulta.substring(consulta.indexOf("(")+1, consulta.indexOf(")")).split(", ");
 					var reglaAsociada = buscarRegla(consulta, listaReglas);
-					var factsAsociados = sustituirVariables(reglaAsociada, variablesConsulta);
+					var factsAsociados = this.sustituirVariables(reglaAsociada, variablesConsulta);
 					return (evaluarVariosFacts(factsAsociados, db));
 				} else {
 					//La consulta está asociada a un fact
