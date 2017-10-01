@@ -124,7 +124,8 @@ var Interpreter = function () {
     this.checkQuery = function (consulta) {
 		var listaReglas = db.map(generarListaReglas).filter(Boolean);
 		if(this.verificarSintaxisQuery(consulta)){
-			if(this.verificarSintaxisBDD(db) == -1){
+			var lineaError = this.verificarSintaxisBDD(db);
+			if(lineaError == -1){
 				//La BDD tiene una sintaxis correcta
 				if(this.identificarConsulta(consulta, listaReglas)){
 					//La consulta está asociada a una regla
@@ -138,7 +139,8 @@ var Interpreter = function () {
 				}
 			} else {
 				//La BDD tiene errores de sintaxis
-				return null;
+				var msjErrorBDD = "Hubo un error al intentar leer la linea " + lineaError;
+				return msjErrorBDD;
 			}			
 		} else {
 			//La consulta no está bien formulada

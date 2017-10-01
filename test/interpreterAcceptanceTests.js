@@ -127,7 +127,6 @@ describe("Interpreter", function () {
         it('wrongDB2 should return 2', function () {
             assert(interpreter.verificarSintaxisBDD(wrongDB2) == 2);
         });
-
     });
 
     describe('Substitue vars in rules', function () {
