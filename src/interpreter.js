@@ -87,8 +87,8 @@ var Interpreter = function () {
 		return factNuevo;
 	}
 
-	//Determina si la consulta corresponde a una regla (devuel true) o a un fact (devuelve false)
-	function identificarConsulta(consulta, listaReglas){
+	//Determina si la consulta corresponde a una regla (devuelve true) o a un fact (devuelve false)
+	this.identificarConsulta = function(consulta, listaReglas){
 		var nombreConsulta = consulta.substring(0, consulta.indexOf("("));
 		var esRegla = false;
 		var i = 0;
@@ -126,7 +126,7 @@ var Interpreter = function () {
 		if(this.verificarSintaxisQuery(consulta)){
 			if(this.verificarSintaxisBDD(db) == -1){
 				//La BDD tiene una sintaxis correcta
-				if(identificarConsulta(consulta, listaReglas)){
+				if(this.identificarConsulta(consulta, listaReglas)){
 					//La consulta está asociada a una regla
 					var variablesConsulta = consulta.substring(consulta.indexOf("(")+1, consulta.indexOf(")")).split(", ");
 					var reglaAsociada = buscarRegla(consulta, listaReglas);

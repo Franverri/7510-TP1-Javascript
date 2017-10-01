@@ -169,6 +169,32 @@ describe("Interpreter", function () {
         it('varon(juan), padre(maria, pepe) should be false', function () {
             assert(interpreter.evaluarVariosFacts(oneWrongFacts, db) === false);
         });
+    });
+
+    describe('Identify query', function () {
+
+        var regla2 = {
+            nombre: "hijo",
+            variables: ["X", "Y"],
+            facts: "varon(X), padre(Y, X)."
+        };
+
+        var regla3 = {
+            nombre: "hija",
+            variables: ["X", "Y"],
+            facts: "mujer(X), padre(Y, X)."
+        };
+
+        var listaReglas = [regla2, regla3];
+
+        //Devuelve true en caso de que sea una regla o false en caso contrario
+        it('varon(juan) should be false', function () {
+            assert(interpreter.identificarConsulta("varon(juan)", listaReglas) === false);
+        });
+
+        it('hijo(juan, pepe) should be true', function () {
+            assert(interpreter.identificarConsulta("hijo(juan, pepe)", listaReglas) === true);
+        });
 
     });
 
