@@ -153,6 +153,25 @@ describe("Interpreter", function () {
         });
     });
 
+    describe('Multiple facts evaluation', function () {
+
+        var threeFacts = "varon(juan), varon(pepe), mujer(maria).";
+        it('varon(juan), varon(pepe), mujer(maria) should be true', function () {
+            assert(interpreter.evaluarVariosFacts(threeFacts, db) === true);
+        });
+
+        var twoFacts = "varon(juan), padre(juan, pepe).";
+        it('varon(juan), padre(juan, pepe) should be true', function () {
+            assert(interpreter.evaluarVariosFacts(twoFacts, db) === true);
+        });
+
+        var oneWrongFacts = "varon(juan), padre(maria, pepe).";
+        it('varon(juan), padre(maria, pepe) should be false', function () {
+            assert(interpreter.evaluarVariosFacts(oneWrongFacts, db) === false);
+        });
+
+    });
+
 });
 
 

@@ -47,8 +47,8 @@ var Interpreter = function () {
 	}
 
 	//Evalua todos los facts que incluye la regla
-	function evaluarVariosFacts(factsAsociados, listaBDD){
-		factsAsociados = factsAsociados.replace("),", ");");
+	this.evaluarVariosFacts = function(factsAsociados, listaBDD){
+		factsAsociados = factsAsociados.replace(/\),/g,");");
 		var listaFacts = factsAsociados.split("; ");
 		var evaluacionFinal = true;
 		var consultaSinPunto;
@@ -131,7 +131,7 @@ var Interpreter = function () {
 					var variablesConsulta = consulta.substring(consulta.indexOf("(")+1, consulta.indexOf(")")).split(", ");
 					var reglaAsociada = buscarRegla(consulta, listaReglas);
 					var factsAsociados = this.sustituirVariables(reglaAsociada, variablesConsulta);
-					return (evaluarVariosFacts(factsAsociados, db));
+					return (this.evaluarVariosFacts(factsAsociados, db));
 				} else {
 					//La consulta está asociada a un fact
 					return evaluarFact(consulta, db);
