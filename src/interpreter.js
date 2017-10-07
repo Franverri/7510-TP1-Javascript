@@ -139,12 +139,14 @@ var Interpreter = function () {
 				}
 			} else {
 				//La BDD tiene errores de sintaxis
-				var msjErrorBDD = "Hubo un error al intentar leer la linea " + lineaError;
-				return msjErrorBDD;
+				throw new Error("Hubo un error al intentar leer la linea " + lineaError);
+				//var msjErrorBDD = "Hubo un error al intentar leer la linea " + lineaError;
+				//return msjErrorBDD;
 			}			
 		} else {
 			//La consulta no está bien formulada
-			return null;
+			//Arroja una excepción
+			throw new Error("La consulta no está bien formulada");
 		}
 
     }
